@@ -12,7 +12,7 @@ echo'
        
         <li class="nav-item">
         <a class="nav-link active" href="user_manager.php">
-            <span class="iconify" data-icon="bi:file-person" data-inline="false"></span>
+            <span class="iconify" data-icon="bi-house-fill" data-inline="false"></span>
             Danh sách người dùng <span class="sr-only">(current)</span>
         </a>
         </li>
@@ -24,19 +24,19 @@ echo'
         </li>
         <li class="nav-item">
         <a class="nav-link active" href="pos_manager.php">
-            <span class="iconify" data-icon="bi:file-person" data-inline="false"></span>
+            <span class="iconify" data-icon="bi-signpost-split-fill" data-inline="false"></span>
             Quản lý địa điểm <span class="sr-only">(current)</span>
         </a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="book_manager.php">
-            <span class="iconify" data-icon="bi:file-person" data-inline="false"></span>
+            <span class="iconify" data-icon="bi-minecart-loaded" data-inline="false"></span>
             Danh sách đặt xe <span class="sr-only">(current)</span>
         </a>
         </li>
         <li class="nav-item">
         <a class="nav-link active" href="map.php">
-            <span class="iconify" data-icon="bi-chat-dots" data-inline="false"></span>
+            <span class="iconify" data-icon="bi-geo-alt" data-inline="false"></span>
             Bản đồ <span class="sr-only">(current)</span>
         </a>
         </li>
