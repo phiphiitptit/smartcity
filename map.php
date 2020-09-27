@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 if (isset($_SESSION['user_data'])) {
 	if ($_SESSION['user_data']['usertype'] != 1) {
-		header("Location:student_dasboard.php");
+		header("Location:user_dasboard.php");
 	}
 }
 
@@ -74,63 +74,10 @@ while ($row = mysqli_fetch_assoc($qr)) {
 
     <div class="container-fluid">
         <div class="row">
-            <?php include 'teacher_menu.php'?>
+            <?php include 'admin_menu.php'?>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-                    <div class="btn-group mr-2">
-                        <a class="btn btn-info" href="add_student.php">
-                            Thêm SV</a>
-                    </div>
-
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm" style="text-align: center;">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Họ tên</th>
-                                <th>Email</th>
-                                <th>Công việc</th>
-                                <th>Điện thoại</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-							foreach ($data as $d) {
-							?>
-                            <tr>
-                                <td><?php echo ++$count; ?></td>
-                                <td><?php echo $d['name']; ?></td>
-                                <td><?php echo $d['email']; ?></td>
-                                <td>
-                                    <?php if ($d['usertype'] == '1') {
-											echo "Giáo viên";
-										} else {
-											echo "Học sinh";
-										} ?>
-                                </td>
-                                <td><?php echo $d['telephone']; ?></td>
-
-
-                                <td><a class="btn btn-info" href="view_info.php?id=<?php echo $d['id']; ?>">
-                                        Xem</a>
-                                    <a class="btn btn-info" href="add_student.php?id=<?php echo $d['id']; ?>">
-                                        Sửa</a>
-                                    <a class="btn btn-info" href="add_student_post.php?iddelete=<?php echo $d['id']; ?>" onclick="return confirm('Bạn có chắc chắn xóa?')">
-                                        Xóa</a>
-                                </td>
-
-                            </tr>
-                            <?php
-							}
-							?>
-                        </tbody>
-                    </table>
-                </div>
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
+                <img src="map.png" style="width:auto;height:auto">
             </main>
         </div>
     </div>

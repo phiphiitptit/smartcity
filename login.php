@@ -2,10 +2,10 @@
 session_start();
 if(isset($_SESSION['user_data'])){
 	if($_SESSION['user_data']['usertype']==1){
-		header("Location:teacher_dasboard.php");
+		header("Location:admin_dasboard.php");
 	}
 	else{
-		header("Location:student_dasboard.php");	
+		header("Location:user_dasboard.php");	
 	}
 }
 ?>
