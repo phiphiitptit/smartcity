@@ -77,7 +77,7 @@ while ($row = mysqli_fetch_assoc($qr)) {
             <?php include 'admin_menu.php'?>
 
             <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
-                <img src="map.png" style="width:auto;height:auto">
+                <img src="anhmap.png"width="100%" height="auto";>
             </main>
         </div>
     </div>

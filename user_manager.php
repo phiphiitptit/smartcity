@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 if (isset($_SESSION['user_data'])) {
 	if ($_SESSION['user_data']['usertype'] != 1) {
-		header("Location:student_dasboard.php");
+		header("Location:user_dasboard.php");
 	}
 }
 
@@ -60,7 +60,7 @@ while ($row = mysqli_fetch_assoc($qr)) {
 
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="teacher_dasboard.php"> Admin</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="teacher_dasboard.php">Admin</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
             data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,8 +81,8 @@ while ($row = mysqli_fetch_assoc($qr)) {
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
                     <div class="btn-group mr-2">
-                        <a class="btn btn-info" href="add_student.php">
-                            Thêm SV</a>
+                        <a class="btn btn-info" href="add_user.php">
+                            Thêm Tài Khoản</a>
                     </div>
 
                 </div>
@@ -108,19 +108,22 @@ while ($row = mysqli_fetch_assoc($qr)) {
                                 <td><?php echo $d['email']; ?></td>
                                 <td>
                                     <?php if ($d['usertype'] == '1') {
-											echo "Giáo viên";
-										} else {
-											echo "Học sinh";
-										} ?>
+											echo "Quản trị viên";
+										} elseif($d['usertype'] == '2')  {
+											echo "Người dùng";
+                                        } 
+                                        else{
+                                            echo "Tài xế";
+                                        }?>
                                 </td>
                                 <td><?php echo $d['telephone']; ?></td>
 
 
                                 <td><a class="btn btn-info" href="view_info.php?id=<?php echo $d['id']; ?>">
                                         Xem</a>
-                                    <a class="btn btn-info" href="add_student.php?id=<?php echo $d['id']; ?>">
+                                    <a class="btn btn-info" href="add_user.php?id=<?php echo $d['id']; ?>">
                                         Sửa</a>
-                                    <a class="btn btn-info" href="add_student_post.php?iddelete=<?php echo $d['id']; ?>" onclick="return confirm('Bạn có chắc chắn xóa?')">
+                                    <a class="btn btn-info" href="add_user_post.php?iddelete=<?php echo $d['id']; ?>" onclick="return confirm('Bạn có chắc chắn xóa?')">
                                         Xóa</a>
                                 </td>
 

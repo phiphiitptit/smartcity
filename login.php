@@ -28,7 +28,7 @@ if(isset($_SESSION['user_data'])){
 
 <body >
 
-    <h1 class="h3 mb-3 font-weight-normal" style="text-align:center">Hệ thống quản lý sinh viên</h1>
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align:center">Hệ thống quản lý đặt xe</h1>
     
     <div class="container">
     

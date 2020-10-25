@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 if (isset($_SESSION['user_data'])) {
 	if ($_SESSION['user_data']['usertype'] != 1) {
-		header("Location:student_dasboard.php");
+		header("Location:user_dasboard.php");
 	}
 
 
@@ -17,15 +17,15 @@ if (isset($_SESSION['user_data'])) {
 	if (isset($_POST['save'])) {
 		$sql = mysqli_query($con, "SELECT * FROM user  WHERE username='".$username."' or email='".$email."'");
 		if (mysqli_num_rows($sql) > 0) {
-			header("Location:add_student.php?error=Lỗi thêm học sinh Tài khoản hoặc email trùng nhau");
+			header("Location:add_user.php?error=Lỗi thêm  Tài khoản hoặc email trùng nhau");
 		} else {
 			$qr = mysqli_query($con, "INSERT into user (username,password,name,email,telephone,usertype,created_at) values ('" . $username . "','" . md5($password) . "','" . $name . "','" . $email . "','" . $telephone . "','2','" . date('Y-m-d H:i:s') . "')");
 
 			if ($qr) {
-				header("Location:add_student.php?success=Thêm thành công");
-				header("Location:teacher_dasboard.php");
+				header("Location:add_user.php?success=Thêm thành công");
+				header("Location:user_manager.php");
 			} else {
-				header("Location:add_student.php?error=Lỗi thêm học sinh");
+				header("Location:add_user.php?error=Lỗi thêm học sinh");
 			}
 		}
 	}
@@ -38,15 +38,15 @@ if (isset($_SESSION['user_data'])) {
 		}
 		$sql = mysqli_query($con, "SELECT * FROM user  WHERE username='".$username."' or email='".$email."'");
 		if (mysqli_num_rows($sql) > 0) {
-			header("Location:add_student.php?error=Lỗi thêm học sinh Tài khoản hoặc email trùng nhau");
+			header("Location:add_user.php?error=Lỗi thêm Tài khoản hoặc email trùng nhau");
 		} else {
 			$qr = mysqli_query($con, "UPDATE user SET username='" . $username . "', password='" . $password . "',email='" . $email . "', name='" . $name . "',telephone='" . $telephone . "' WHERE id='" . $id . "'");
 			// $_SESSION['message'] = "Address updated!"; 
 			if ($qr) {
-				header("Location:add_student.php?success=Sửa thành công");
-				header("Location:teacher_dasboard.php");
+				header("Location:add_user.php?success=Sửa thành công");
+				header("Location:user_manager.php");
 			} else {
-				header("Location:add_student.php?success=Gặp lỗi khi sửa");
+				header("Location:admin_student.php?success=Gặp lỗi khi sửa");
 			}
 		}
 
@@ -56,7 +56,7 @@ if (isset($_SESSION['user_data'])) {
 		$id = $_GET['iddelete'];
 		$qr = mysqli_query($con, "DELETE FROM user WHERE id=$id");
 		if ($qr) {
-			header("Location:teacher_dasboard.php");
+			header("Location:user_manager.php");
 		}
 	}
 } else {

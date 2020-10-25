@@ -9,7 +9,7 @@ if (isset($_SESSION['user_data'])) {
 
 $data = array();
 $count=0;
-$qr = mysqli_query($con, "select * from user");
+$qr = mysqli_query($con, "select * from fee");
 while ($row = mysqli_fetch_assoc($qr)) {
 	array_push($data, $row);
 }
@@ -81,8 +81,8 @@ while ($row = mysqli_fetch_assoc($qr)) {
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
                     <div class="btn-group mr-2">
-                        <a class="btn btn-info" href="add_user.php">
-                            Thêm Tài Khoản</a>
+                        <a class="btn btn-info" href="add_fee.php">
+                            Thêm Bảng giá</a>
                     </div>
 
                 </div>
@@ -91,10 +91,10 @@ while ($row = mysqli_fetch_assoc($qr)) {
                         <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Họ tên</th>
-                                <th>Email</th>
-                                <th>Công việc</th>
-                                <th>Điện thoại</th>
+                                <th>Khởi hành</th>
+                                <th>Kết thúc</th>
+                                <th>Chi Phí</th>
+
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -104,26 +104,13 @@ while ($row = mysqli_fetch_assoc($qr)) {
 							?>
                             <tr>
                                 <td><?php echo ++$count; ?></td>
-                                <td><?php echo $d['name']; ?></td>
-                                <td><?php echo $d['email']; ?></td>
+                                <td><?php echo $d['startPos']; ?></td>
+                                <td><?php echo $d['endPos']; ?></td>
+                                <td><?php echo $d['costPay']; ?></td>
                                 <td>
-                                    <?php if ($d['usertype'] == '1') {
-											echo "Quản trị viên";
-										} elseif($d['usertype'] == '2')  {
-											echo "Người dùng";
-                                        } 
-                                        else{
-                                            echo "Tài xế";
-                                        }?>
-                                </td>
-                                <td><?php echo $d['telephone']; ?></td>
-
-
-                                <td><a class="btn btn-info" href="view_info.php?id=<?php echo $d['id']; ?>">
-                                        Xem</a>
-                                    <a class="btn btn-info" href="add_user.php?id=<?php echo $d['id']; ?>">
+                                    <a class="btn btn-info" href="add_fee.php?id=<?php echo $d['id']; ?>">
                                         Sửa</a>
-                                    <a class="btn btn-info" href="add_user_post.php?iddelete=<?php echo $d['id']; ?>" onclick="return confirm('Bạn có chắc chắn xóa?')">
+                                    <a class="btn btn-info" href="add_fee_post.php?iddelete=<?php echo $d['id']; ?>" onclick="return confirm('Bạn có chắc chắn xóa?')">
                                         Xóa</a>
                                 </td>
 

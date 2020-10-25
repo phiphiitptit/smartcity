@@ -105,8 +105,7 @@ if (isset($_SESSION['user_data'])) {
                 <?php include 'admin_menu.php' ?>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-                    <div class="container">
-
+                  
 
                         <ul class="nav nav-tabs">
                             <li class="active"><a class="btn btn-info" href="#send">Chuyến xe đã đặt</a></li>
@@ -290,7 +289,7 @@ if (isset($_SESSION['user_data'])) {
                         </div>
                         <hr>
 
-                    </div>
+                   
 
 
                 </main>
