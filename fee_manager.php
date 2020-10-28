@@ -13,6 +13,11 @@ $qr = mysqli_query($con, "select * from fee");
 while ($row = mysqli_fetch_assoc($qr)) {
 	array_push($data, $row);
 }
+$dataPos = array();
+$qr2 = mysqli_query($con, "select * from pos");
+while ($row = mysqli_fetch_assoc($qr2)) {
+	array_push($dataPos, $row);
+}
 
 
 ?>

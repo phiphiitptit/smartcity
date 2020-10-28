@@ -6,36 +6,44 @@ if (isset($_SESSION['user_data'])) {
 
     $id = $_SESSION['user_data']['id'];
 
-    // $qr = mysqli_query($con, "SELECT user.name,chat_message.to_user_id,chat_message.title,chat_message.msg,chat_message.created_at,chat_message.id
-    //      FROM  chat_message
-    //      Join user ON user.id=chat_message.to_user_id
-    //      where chat_message.from_user_id=$id
-    //      order by chat_message.id");
-    $data_send = array();
+    $qr = mysqli_query($con, "SELECT user.name,bookcar.codeCar,bookcar.startPos,bookcar.endPos,bookcar.costPay,bookcar.status,bookcar.created_at,bookcar.id
+         FROM  bookcar
+         Join user ON user.id = bookcar.iduser
+         where bookcar.status = 0 
+        order by bookcar.id");
+    $data_booking = array();
     $count = 0;
-
-    // while ($row = mysqli_fetch_assoc($qr)) {
-    //     array_push($data_send, $row);
-    // }
-    // $qr = mysqli_query($con, "SELECT user.name,chat_message.from_user_id,chat_message.title,chat_message.msg,chat_message.created_at,chat_message.id
-    // FROM  chat_message
-    // left join user ON user.id=chat_message.from_user_id
-    // where chat_message.status_mes=0 and chat_message.to_user_id=$id
-    // order by chat_message.from_user_id");
+    while ($row = mysqli_fetch_assoc($qr)) {
+        array_push($data_booking, $row);
+    }
+    $qr = mysqli_query($con, "SELECT user.name,bookcar.codeCar,bookcar.startPos,bookcar.endPos,bookcar.costPay,bookcar.status,bookcar.created_at,bookcar.id
+    FROM  bookcar
+    Join user ON user.id = bookcar.iduser
+    where bookcar.status=1
+   order by bookcar.id");
     $data_cancel = array();
-    // while ($row = mysqli_fetch_assoc($qr)) {
-    //     array_push($data_noseen, $row);
-    // }
-    // $qr = mysqli_query($con, "SELECT user.name,chat_message.from_user_id,chat_message.title,chat_message.msg,chat_message.created_at,chat_message.id
-    // FROM  chat_message
-    // left Join user ON user.id=chat_message.from_user_id
-    // where chat_message.status_mes=1 and chat_message.to_user_id=$id
-    // order by chat_message.from_user_id");
+    while ($row = mysqli_fetch_assoc($qr)) {
+        array_push($data_cancel, $row);
+    }
+    $qr = mysqli_query($con, "SELECT user.name,bookcar.codeCar,bookcar.startPos,bookcar.endPos,bookcar.costPay,bookcar.status,bookcar.created_at,bookcar.id
+    FROM  bookcar
+    Join user ON user.id = bookcar.iduser
+    where bookcar.status=2
+    order by bookcar.id");
     $data_start = array();
-    $data_done=array();
-    // while ($row = mysqli_fetch_assoc($qr)) {
-    //     array_push($data_seen, $row);
-    // }
+    while ($row = mysqli_fetch_assoc($qr)) {
+        array_push($data_start, $row);
+    }
+    $qr = mysqli_query($con, "SELECT user.name,bookcar.codeCar,bookcar.startPos,bookcar.endPos,bookcar.costPay,bookcar.status,bookcar.created_at,bookcar.id
+    FROM  bookcar
+    Join user ON user.id = bookcar.iduser
+    where bookcar.status=3
+    order by bookcar.id");
+    $data_done = array();
+    while ($row = mysqli_fetch_assoc($qr)) {
+        array_push($data_done, $row);
+    }
+
     //     if (isset($_GET['id'])) {
     //         $id = $_GET['id'];
     //         $qr = mysqli_query($con, "UPDATE chat_message SET status_mes=1 WHERE id=$id");
@@ -44,6 +52,7 @@ if (isset($_SESSION['user_data'])) {
     //         }
     //     }
     // $update = false;
+
 ?>
     <!DOCTYPE html>
     <html>
@@ -84,7 +93,7 @@ if (isset($_SESSION['user_data'])) {
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet">
         <link href="chat.css" rel="stylesheet">
-       
+
     </head>
 
     <body>
@@ -105,191 +114,193 @@ if (isset($_SESSION['user_data'])) {
                 <?php include 'admin_menu.php' ?>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-                  
 
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a class="btn btn-info" href="#send">Chuyến xe đã đặt</a></li>
-                            <li><a class="btn btn-info" href="#cancel">Chuyến xe hủy</a></li>
-                            <li><a class="btn btn-info" href="#happen">Chuyến xe đang thực hiện</a></li>
-                            <li><a class="btn btn-info" href="#done">Chuyến xe hoàn thành</a></li>
 
-                        </ul>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a class="btn btn-info" href="#send">Chuyến xe đã đặt</a></li>
+                        <li><a class="btn btn-info" href="#cancel">Chuyến xe hủy</a></li>
+                        <li><a class="btn btn-info" href="#happen">Chuyến xe đang thực hiện</a></li>
+                        <li><a class="btn btn-info" href="#done">Chuyến xe hoàn thành</a></li>
 
-                        <div class="tab-content">
-                            <div id="send" class="tab-pane fade in active">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" style="text-align: center;">
-                                        <thead>
-                                            <tr>
-                                                <th>STT</th>
-                                                <th>Người đặt</th>
-                                                <th>Mã xe</th>
-                                                <th>Chi phí</th>
-                                                <th>Điểm đi</th>
-                                                <th>Điểm đến</th>
-                                                <th>Thời gian đặt</th>
-                                                <th>Trạng thái</th>
-                                                <th>Thao tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $count = 0;
-                                            foreach ($data_send as $d) {
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo ++$count; ?></td>
-                                                    <td><?php echo $d['name']; ?></td>
-                                                    <td><?php echo $d['created_at']; ?></td>
-                                                    <td><?php echo $d['title']; ?></td>
-                                                   
-                                                    <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>">
-                                                            Xem</a>
-                                                            <a class="btn btn-info" name="edit" href="edit_message.php?id=<?php echo $d['id']; ?>">
-                                                            Sửa</a>
-                                                            <a class="btn btn-info" name="delete" href="edit_message_post.php?id=<?php echo $d['id']; ?>">
-                                                            Xóa</a>
-                                                    </td> 
+                    </ul>
 
-                                                </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div id="cancel" class="tab-pane fade">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" style="text-align: center;">
-                                        <thead>
-                                            <tr>
-                                            
+                    <div class="tab-content">
+                        <div id="send" class="tab-pane fade in active">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm" style="text-align: center;">
+                                    <thead>
+                                        <tr>
                                             <th>STT</th>
-                                                <th>Người đặt</th>
-                                                <th>Mã xe</th>
-                                                <th>Chi phí</th>
-                                                <th>Điểm đi</th>
-                                                <th>Điểm đến</th>
-                                                <th>Thời gian đặt</th>
-                                                <th>Trạng thái</th>
-                                                <th>Thao tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $count = 0;
-                                            foreach ($data_cancel as $d) {
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo ++$count; ?></td>
-                                                    <td><?php echo $d['name']; ?></td>
-                                                    <td><?php echo $d['created_at']; ?></td>
-                                                    <td><?php echo $d['title']; ?></td>
-                                                    <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Xem</a>
+                                            <th>Người đặt</th>
+                                            <th>Mã xe</th>
+                                            <th>Chi phí</th>
+                                            <th>Điểm đi</th>
+                                            <th>Điểm đến</th>
+                                            <th>Thời gian đặt</th>
 
-                                                        <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Đã xem</a>
-                                                    </td>
-
-                                                </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div id="happend" class="tab-pane fade">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" style="text-align: center;">
-                                        <thead>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $count = 0;
+                                        foreach ($data_booking as $d) {
+                                        ?>
                                             <tr>
-                                            
-                                            <th>STT</th>
-                                                <th>Người đặt</th>
-                                                <th>Mã xe</th>
-                                                <th>Chi phí</th>
-                                                <th>Điểm đi</th>
-                                                <th>Điểm đến</th>
-                                                <th>Thời gian đặt</th>
-                                                <th>Trạng thái</th>
-                                                <th>Thao tác</th>
+                                                <td><?php echo ++$count; ?></td>
+                                                <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['codeCar']; ?></td>
+                                                <td><?php echo $d['costPay']; ?></td>
+                                                <td><?php echo $d['startPos']; ?></td>
+                                                <td><?php echo $d['endPos']; ?></td>
+                                                <td><?php echo $d['created_at']; ?></td>
+                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>">
+                                                        Xem</a>
+                                                    <a class="btn btn-info" name="edit" href="edit_message.php?id=<?php echo $d['id']; ?>">
+                                                        Sửa</a>
+                                                    <a class="btn btn-info" name="delete" href="edit_message_post.php?id=<?php echo $d['id']; ?>">
+                                                        Xóa</a>
+                                                </td>
+
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $count = 0;
-                                            foreach ($data_start as $d) {
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo ++$count; ?></td>
-                                                    <td><?php echo $d['name']; ?></td>
-                                                    <td><?php echo $d['created_at']; ?></td>
-                                                    <td><?php echo $d['title']; ?></td>
-                                                    <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Xem</a>
-
-                                                        <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Đã xem</a>
-                                                    </td>
-
-                                                </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div id="done" class="tab-pane fade">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-sm" style="text-align: center;">
-                                        <thead>
-                                            <tr>
-                                            
-                                            <th>STT</th>
-                                                <th>Người đặt</th>
-                                                <th>Mã xe</th>
-                                                <th>Chi phí</th>
-                                                <th>Điểm đi</th>
-                                                <th>Điểm đến</th>
-                                                <th>Thời gian đặt</th>
-                                                <th>Trạng thái</th>
-                                                <th>Thao tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $count = 0;
-                                            foreach ($data_done as $d) {
-                                            ?>
-                                                <tr>
-                                                    <td><?php echo ++$count; ?></td>
-                                                    <td><?php echo $d['name']; ?></td>
-                                                    <td><?php echo $d['created_at']; ?></td>
-                                                    <td><?php echo $d['title']; ?></td>
-                                                    <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Xem</a>
-
-                                                        <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                            Đã xem</a>
-                                                    </td>
-
-                                                </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
                         </div>
-                        <hr>
+                        <div id="cancel" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm" style="text-align: center;">
+                                    <thead>
+                                        <tr>
 
-                   
+                                            <th>STT</th>
+                                            <th>Người đặt</th>
+                                            <th>Mã xe</th>
+                                            <th>Chi phí</th>
+                                            <th>Điểm đi</th>
+                                            <th>Điểm đến</th>
+                                            <th>Thời gian đặt</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $count = 0;
+                                        foreach ($data_cancel as $d) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo ++$count; ?></td>
+                                                <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['created_at']; ?></td>
+                                                <td><?php echo $d['title']; ?></td>
+                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Xem</a>
+
+                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Đã xem</a>
+                                                </td>
+
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="happend" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+
+                                            <th>STT</th>
+                                            <th>Người đặt</th>
+                                            <th>Mã xe</th>
+                                            <th>Chi phí</th>
+                                            <th>Điểm đi</th>
+                                            <th>Điểm đến</th>
+                                            <th>Thời gian đặt</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $count = 0;
+                                        foreach ($data_start as $d) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo ++$count; ?></td>
+                                                <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['created_at']; ?></td>
+                                                <td><?php echo $d['title']; ?></td>
+                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Xem</a>
+
+                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Đã xem</a>
+                                                </td>
+
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="done" class="tab-pane fade">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+
+                                            <th>STT</th>
+                                            <th>Người đặt</th>
+                                            <th>Mã xe</th>
+                                            <th>Chi phí</th>
+                                            <th>Điểm đi</th>
+                                            <th>Điểm đến</th>
+                                            <th>Thời gian đặt</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $count = 0;
+                                        foreach ($data_done as $d) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo ++$count; ?></td>
+                                                <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['created_at']; ?></td>
+                                                <td><?php echo $d['title']; ?></td>
+                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Xem</a>
+
+                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
+                                                        Đã xem</a>
+                                                </td>
+
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+
+
 
 
                 </main>
