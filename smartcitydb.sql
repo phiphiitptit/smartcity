@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 25, 2020 lúc 12:34 PM
+-- Thời gian đã tạo: Th10 28, 2020 lúc 09:34 PM
 -- Phiên bản máy phục vụ: 10.4.14-MariaDB
 -- Phiên bản PHP: 7.2.33
 
@@ -34,7 +34,8 @@ CREATE TABLE `bookcar` (
   `costPay` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `status` int(11) NOT NULL,
-  `iduser` int(11) NOT NULL
+  `iduser` int(11) NOT NULL,
+  `codeCar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -111,10 +112,18 @@ INSERT INTO `chat_message` (`id`, `title`, `to_user_id`, `from_user_id`, `msg`, 
 
 CREATE TABLE `fee` (
   `id` int(11) NOT NULL,
-  `startPos` int(11) NOT NULL,
-  `endPos` int(11) NOT NULL,
+  `startPos` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `endPos` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `costPay` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `fee`
+--
+
+INSERT INTO `fee` (`id`, `startPos`, `endPos`, `costPay`) VALUES
+(4, 'School', 'School', 500000),
+(5, 'Shopping Center', 'Zoo', 250000);
 
 -- --------------------------------------------------------
 
@@ -155,7 +164,10 @@ CREATE TABLE `pos` (
 --
 
 INSERT INTO `pos` (`id`, `addressPos`) VALUES
-(2, 'School');
+(2, 'School'),
+(3, 'House'),
+(4, 'Shopping Center'),
+(5, 'Zoo');
 
 -- --------------------------------------------------------
 
@@ -364,7 +376,7 @@ ALTER TABLE `chat_message`
 -- AUTO_INCREMENT cho bảng `fee`
 --
 ALTER TABLE `fee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `homework`
@@ -376,7 +388,7 @@ ALTER TABLE `homework`
 -- AUTO_INCREMENT cho bảng `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `result`
