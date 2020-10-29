@@ -132,7 +132,6 @@ if (isset($_SESSION['user_data'])) {
                                         <tr>
                                             <th>STT</th>
                                             <th>Người đặt</th>
-                                            <th>Mã xe</th>
                                             <th>Chi phí</th>
                                             <th>Điểm đi</th>
                                             <th>Điểm đến</th>
@@ -149,17 +148,13 @@ if (isset($_SESSION['user_data'])) {
                                             <tr>
                                                 <td><?php echo ++$count; ?></td>
                                                 <td><?php echo $d['name']; ?></td>
-                                                <td><?php echo $d['codeCar']; ?></td>
                                                 <td><?php echo $d['costPay']; ?></td>
                                                 <td><?php echo $d['startPos']; ?></td>
                                                 <td><?php echo $d['endPos']; ?></td>
                                                 <td><?php echo $d['created_at']; ?></td>
-                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>">
-                                                        Xem</a>
-                                                    <a class="btn btn-info" name="edit" href="edit_message.php?id=<?php echo $d['id']; ?>">
-                                                        Sửa</a>
-                                                    <a class="btn btn-info" name="delete" href="edit_message_post.php?id=<?php echo $d['id']; ?>">
-                                                        Xóa</a>
+                                                <td><a class="btn btn-info" name="seenmes" href="edit_bookcar.php?id=<?php echo $d['id']; ?>">
+                                                        Duyệt</a>
+
                                                 </td>
 
                                             </tr>
@@ -178,13 +173,12 @@ if (isset($_SESSION['user_data'])) {
 
                                             <th>STT</th>
                                             <th>Người đặt</th>
-                                            <th>Mã xe</th>
+                                          
                                             <th>Chi phí</th>
                                             <th>Điểm đi</th>
                                             <th>Điểm đến</th>
                                             <th>Thời gian đặt</th>
-                                            <th>Trạng thái</th>
-                                            <th>Thao tác</th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -195,14 +189,11 @@ if (isset($_SESSION['user_data'])) {
                                             <tr>
                                                 <td><?php echo ++$count; ?></td>
                                                 <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['costPay']; ?></td>
+                                                <td><?php echo $d['startPos']; ?></td>
+                                                <td><?php echo $d['endPos']; ?></td>
                                                 <td><?php echo $d['created_at']; ?></td>
-                                                <td><?php echo $d['title']; ?></td>
-                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Xem</a>
-
-                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Đã xem</a>
-                                                </td>
+                                               
 
                                             </tr>
                                         <?php
@@ -212,7 +203,7 @@ if (isset($_SESSION['user_data'])) {
                                 </table>
                             </div>
                         </div>
-                        <div id="happend" class="tab-pane fade">
+                        <div id="happen" class="tab-pane fade">
                             <div class="table-responsive">
                                 <table class="table table-striped table-sm" style="text-align: center;">
                                     <thead>
@@ -225,7 +216,6 @@ if (isset($_SESSION['user_data'])) {
                                             <th>Điểm đi</th>
                                             <th>Điểm đến</th>
                                             <th>Thời gian đặt</th>
-                                            <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
@@ -235,15 +225,15 @@ if (isset($_SESSION['user_data'])) {
                                         foreach ($data_start as $d) {
                                         ?>
                                             <tr>
-                                                <td><?php echo ++$count; ?></td>
+                                            <td><?php echo ++$count; ?></td>
                                                 <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['codeCar']; ?></td>
+                                                <td><?php echo $d['costPay']; ?></td>
+                                                <td><?php echo $d['startPos']; ?></td>
+                                                <td><?php echo $d['endPos']; ?></td>
                                                 <td><?php echo $d['created_at']; ?></td>
-                                                <td><?php echo $d['title']; ?></td>
-                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Xem</a>
-
-                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Đã xem</a>
+                                                <td><a class="btn btn-info" name="done" href="add_bookcar_post.php?iddone=<?php echo $d['id']; ?>">
+                                                        Đến điểm đến</a>
                                                 </td>
 
                                             </tr>
@@ -268,7 +258,7 @@ if (isset($_SESSION['user_data'])) {
                                             <th>Điểm đến</th>
                                             <th>Thời gian đặt</th>
                                             <th>Trạng thái</th>
-                                            <th>Thao tác</th>
+                                         
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -277,16 +267,14 @@ if (isset($_SESSION['user_data'])) {
                                         foreach ($data_done as $d) {
                                         ?>
                                             <tr>
-                                                <td><?php echo ++$count; ?></td>
+                                            <td><?php echo ++$count; ?></td>
                                                 <td><?php echo $d['name']; ?></td>
+                                                <td><?php echo $d['codeCar']; ?></td>
+                                                <td><?php echo $d['costPay']; ?></td>
+                                                <td><?php echo $d['startPos']; ?></td>
+                                                <td><?php echo $d['endPos']; ?></td>
                                                 <td><?php echo $d['created_at']; ?></td>
-                                                <td><?php echo $d['title']; ?></td>
-                                                <td><a class="btn btn-info" name="seenmes" href="edit_message.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Xem</a>
-
-                                                    <a class="btn btn-info" name="checkseen" href="chatmessage.php?id=<?php echo $d['id']; ?>&edit=false">
-                                                        Đã xem</a>
-                                                </td>
+                                                <td>Hoàn thành</td>
 
                                             </tr>
                                         <?php

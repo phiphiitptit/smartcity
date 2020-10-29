@@ -7,41 +7,23 @@ if (isset($_SESSION['user_data'])) {
         header("Location:user_dasboard.php");
     }
     $editinfo = false;
-    $name = "";
-    $email = "";
-    $id = 0;
-    $password = "";
-    $telephone = "";
-    $username = "";
+    $cost = "";
     $update = false;
-    if (isset($_GET['edit'])) {
-        $editinfo = true;
-        if (isset($_SESSION['user_data']['id'])) {
-            $iduser = $_SESSION['user_data']['id'];
-            $record = mysqli_query($con, "SELECT * FROM user WHERE id=$iduser");
-            if (count(array($record)) == 1) {
-                $data = mysqli_fetch_array($record);
-                $name = $data['name'];
-                $username = $data['username'];
-                $password = $data['password'];
-                $email = $data['email'];
-                $telephone = $data['telephone'];
-            }
-        }
-    }
 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $update = true;
-        $record = mysqli_query($con, "SELECT * FROM user WHERE id=$id");
+        $record = mysqli_query($con, "SELECT * FROM fee WHERE id=$id");
         if (count(array($record)) == 1) {
             $data = mysqli_fetch_array($record);
-            $name = $data['name'];
-            $username = $data['username'];
-            $password = $data['password'];
-            $email = $data['email'];
-            $telephone = $data['telephone'];
+            $cost = $data['costPay'];
         }
+    }
+    $dataPos = array();
+    $count = 0;
+    $qr = mysqli_query($con, "select * from car");
+    while ($row = mysqli_fetch_assoc($qr)) {
+        array_push($dataPos, $row);
     }
 
 
@@ -111,21 +93,13 @@ if (isset($_SESSION['user_data'])) {
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <?php if ($update != true and $editinfo != true) : ?>
-                            <div class="btn-group mr-2">
-                                <a class="btn btn-info" href="add_user.php">
-                                    Thêm Tài Khoản</a>
-                            </div>
-                        <?php else : ?>
-                            <div class="btn-group mr-2">
-                                <a class="btn btn-info" href="admin_dasboard.php">
-                                    Quay lại</a>
-                            </div>
-                        <?php endif ?>
 
-
+                        <div class="btn-group mr-2">
+                            <a class="btn btn-info" href="book_manager.php">
+                                Quay lại</a>
+                        </div>
                     </div>
-                    <form action="add_user_post.php" method="post">
+                    <form action="add_bookcar_post.php" method="post">
                         <div class="row">
                             <?php if (isset($_REQUEST['error'])) { ?>
                                 <div class="col-lg-12">
@@ -145,32 +119,21 @@ if (isset($_SESSION['user_data'])) {
                             <input type="hidden" class="form-control" name="id" value="<?php echo $id; ?>">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputName">Họ tên</label>
-                            <input type="text" class="form-control" name="name" required="required" id="inputName" value="<?php echo $name; ?>">
+                            <label for="inputName">Điều Phối Xe</label>
+                            <select name="code" class="form-control">
+                                <?php
+                                foreach ($dataPos as $d) {
+                                ?>
+
+                                    <option value="<?php echo $d['code']; ?>"><?php echo $d['code']; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="inputUser">Tài khoản</label>
-                            <input type="text" class="form-control" id="inputUser" name="username" required="required" value="<?php echo $username; ?>">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword">Mật khẩu</label>
-                            <input type="password" class="form-control" id="inputPassword" name="password" required="required" value="<?php echo $password; ?>">
-                        </div>
+                        <button type="submit" class="btn btn-primary col-md-6" name="saveCode">Chọn xe</button>
 
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" name="email" required="required" value="<?php echo $email; ?>">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputTel">Điện thoại</label>
-                            <input type="text" class="form-control" id="inputTel" name="telephone" required="required" value="<?php echo $telephone; ?>">
-                        </div>
-                        <?php if ($update == true) : ?>
-                            <button class="btn btn-primary col-md-6" type="submit" name="update" style="background: #556B2F;">Cập nhật</button>
-                        <?php else : ?>
-                            <button type="submit" class="btn btn-primary col-md-6" name="save">Đăng ký</button>
-                        <?php endif ?>
 
                     </form>
                 </main>

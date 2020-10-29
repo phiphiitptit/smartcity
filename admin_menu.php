@@ -4,7 +4,7 @@ echo'
 <div class="sidebar-sticky pt-3">
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="admin_dasboard.php">
+            <a class="nav-link active" href="admin_dashboard.php">
                 <span class="iconify" data-icon="bi:file-person" data-inline="false"></span>
                 Thống kê <span class="sr-only">(current)</span>
             </a>

@@ -85,11 +85,11 @@ if (isset($_SESSION['user_data'])) {
 
         <div class="container-fluid">
             <div class="row">
-                <?php include 'teacher_menu.php' ?>
+                <?php include 'admin_menu.php' ?>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                     <div class="col-lg-2">
                         <div class="btn-group mr-2">
-                            <a class="btn btn-info" href="teacher_dasboard.php">
+                            <a class="btn btn-info" href="admin_dasboard.php">
                                 Quay lại</a>
                         </div>
                     </div>

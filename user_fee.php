@@ -3,13 +3,13 @@ session_start();
 include 'config.php';
 if (isset($_SESSION['user_data'])) {
 	if ($_SESSION['user_data']['usertype'] != 2) {
-
-		header("Location:admin_dasboard.php");
+		header("Location:user_dashboard.php");
 	}
 }
+$id = $_SESSION['user_data']['id'];
 $data = array();
 $count=0;
-$qr = mysqli_query($con, "select * from user");
+$qr = mysqli_query($con, "select * from fee");
 while ($row = mysqli_fetch_assoc($qr)) {
 	array_push($data, $row);
 }
@@ -76,6 +76,37 @@ while ($row = mysqli_fetch_assoc($qr)) {
         <div class="row">
             <?php include 'user_menu.php'?>
 
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Điểm đi</th>
+                                <th>Điểm đến</th>
+                                <th>Chi phí</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+							foreach ($data as $d) {
+							?>
+                            <tr>
+                                <td><?php echo ++$count; ?></td>
+                                <td><?php echo $d['startPos']; ?></td>
+                                <td><?php echo $d['endPos']; ?></td>
+                                <td><?php echo $d['costPay']; ?></td>
+                            </tr>
+                            <?php
+							}
+							?>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
