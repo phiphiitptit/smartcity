@@ -36,7 +36,7 @@ if (isset($_SESSION['user_data'])) {
 		if ($password != $data['password']) {
 			$password = md5($password);
 		}
-		$sql = mysqli_query($con, "SELECT * FROM user  WHERE username='".$username."' or email='".$email."'");
+		$sql = mysqli_query($con, "SELECT * FROM user  WHERE (username='".$username."' or email='".$email."') and id !='".$id."'");
 		if (mysqli_num_rows($sql) > 0) {
 			header("Location:add_user.php?error=Lỗi thêm Tài khoản hoặc email trùng nhau");
 		} else {
