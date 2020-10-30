@@ -4,7 +4,7 @@ include 'config.php';
 if (isset($_SESSION['user_data'])) {
 	if ($_SESSION['user_data']['usertype'] != 2) {
 
-		header("Location:admin_dasboard.php");
+		header("Location:admin_dashboard.php");
 	}
 }
 $data = array();

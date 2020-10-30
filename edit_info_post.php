@@ -23,13 +23,13 @@ if (isset($_SESSION['user_data'])) {
                 header("Location:student_dasboard.php");
             }
         else{
-            header("Location:teacher_dasboard.php");
+            header("Location:admin_dashboard.php");
         }
 		} else {
 			header("Location:edit_info.php?error=Gặp lỗi khi sửa");
 		}
 		
-		// header("Location:teacher_dasboard.php");
+		// header("Location:admin_dashboard.php");
 	}
 	
 } else {

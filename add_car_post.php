@@ -43,7 +43,7 @@ if (isset($_SESSION['user_data'])) {
 			}
 		}
 
-		// header("Location:teacher_dasboard.php");
+		// header("Location:admin_dashboard.php");
 	}
 	if (isset($_GET['iddelete'])) {
 		$id = $_GET['iddelete'];

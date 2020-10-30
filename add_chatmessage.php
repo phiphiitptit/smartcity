@@ -69,7 +69,7 @@ if (isset($_SESSION['user_data'])) {
 
     <body>
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="teacher_dasboard.php"><?php if (!$student) {
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="admin_dashboard.php"><?php if (!$student) {
                                                                                                 echo " Admin";
                                                                                             } else {
                                                                                                 echo " Student";
@@ -90,7 +90,7 @@ if (isset($_SESSION['user_data'])) {
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                     <div class="col-lg-2">
                         <div class="btn-group mr-2">
-                            <a class="btn btn-info" href="teacher_dasboard.php">
+                            <a class="btn btn-info" href="admin_dashboard.php">
                                 Quay lại</a>
                         </div>
                     </div>

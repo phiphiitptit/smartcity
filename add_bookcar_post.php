@@ -25,7 +25,7 @@ if (isset($_SESSION['user_data'])) {
         }
 
 
-        // header("Location:teacher_dasboard.php");
+        // header("Location:admin_dashboard.php");
     }
     if (isset($_GET['iddone'])) {
         $id = $_GET['iddone'];
@@ -41,7 +41,7 @@ if (isset($_SESSION['user_data'])) {
         }
 
 
-        // header("Location:teacher_dasboard.php");
+        // header("Location:admin_dashboard.php");
     }
     if (isset($_POST['saveCode'])) {
         $id = $_POST['id'];
@@ -57,7 +57,7 @@ if (isset($_SESSION['user_data'])) {
         }
 
 
-        // header("Location:teacher_dasboard.php");
+        // header("Location:admin_dashboard.php");
     }
     if (isset($_GET['iddelete'])) {
         $id = $_GET['iddelete'];

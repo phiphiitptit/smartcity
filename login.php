@@ -2,7 +2,7 @@
 session_start();
 if(isset($_SESSION['user_data'])){
 	if($_SESSION['user_data']['usertype']==1){
-		header("Location:admin_dasboard.php");
+		header("Location:admin_dashboard.php");
 	}
 	else{
 		header("Location:user_dasboard.php");	

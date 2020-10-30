@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 28, 2020 lúc 09:34 PM
+-- Thời gian đã tạo: Th10 29, 2020 lúc 10:44 PM
 -- Phiên bản máy phục vụ: 10.4.14-MariaDB
 -- Phiên bản PHP: 7.2.33
 
@@ -29,14 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bookcar` (
   `id` int(11) NOT NULL,
-  `startPos` int(11) NOT NULL,
-  `endPos` int(11) NOT NULL,
+  `startPos` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `endPos` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `costPay` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `status` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
   `codeCar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `bookcar`
+--
+
+INSERT INTO `bookcar` (`id`, `startPos`, `endPos`, `costPay`, `created_at`, `status`, `iduser`, `codeCar`) VALUES
+(2, 'School', 'House', 500000, '2020-10-29 19:02:03', 3, 24, 46006),
+(3, 'School', 'House', 500000, '2020-10-29 20:41:21', 1, 24, 0),
+(4, 'School', 'House', 500000, '2020-10-29 21:56:12', 3, 24, 46006);
 
 -- --------------------------------------------------------
 
@@ -122,7 +131,7 @@ CREATE TABLE `fee` (
 --
 
 INSERT INTO `fee` (`id`, `startPos`, `endPos`, `costPay`) VALUES
-(4, 'School', 'School', 500000),
+(4, 'School', 'House', 500000),
 (5, 'Shopping Center', 'Zoo', 250000);
 
 -- --------------------------------------------------------
@@ -247,7 +256,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `name`, `email`, `telephone`, 
 (19, 'phigv', '86871b9b1ab33b0834d455c540d82e89', 'Bùi Đức Phi', 'supovipxtb@gmail.com', '0163 371 2623', '2', '2020-09-25 19:34:20'),
 (21, 'testsv', 'b56feff478271e82b89bf62314836c40', 'Tesst', 'testsv@gmail.com', '312134131313', '2', '2020-09-26 03:51:06'),
 (22, 'phiphiitit', '30909b15f8a4ac9924b4a4ab43946aa4', 'Bùi Đức Phi', 'supovipxtb2@gmail.com', '0163 371 2623', '2', '2020-10-25 07:27:07'),
-(23, 'phiphiit1', '4b2fb5c9f897742f7f6abae9075e1521', 'Bùi Đức Phi', 'supovipxtbe@gmail.com', '0163 371 2623', '2', '2020-10-25 07:29:33');
+(23, 'phiphiit1', '4b2fb5c9f897742f7f6abae9075e1521', 'Bùi Đức Phi', 'supovipxtbe@gmail.com', '0163 371 2623', '2', '2020-10-25 07:29:33'),
+(24, 'phiphi2', 'e8bb43cdac2b01fd9dfffda51d3aa4e4', 'Bùi Đức Phi', 'supovipxtb@gmail.com2', '0163 371 2623', '2', '2020-10-29 17:15:57');
 
 -- --------------------------------------------------------
 
@@ -352,7 +362,7 @@ ALTER TABLE `usertypes`
 -- AUTO_INCREMENT cho bảng `bookcar`
 --
 ALTER TABLE `bookcar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `car`
@@ -412,7 +422,7 @@ ALTER TABLE `sub_result`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT cho bảng `usertypes`
