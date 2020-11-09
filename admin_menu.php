@@ -33,10 +33,17 @@ echo'
             <span class="iconify" data-icon="dashicons:money-alt" data-inline="false"></span>
             Quản lý chi phí <span class="sr-only">(current)</span>
         </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link active" href="book_manager.php">
             <span class="iconify" data-icon="bi-minecart-loaded" data-inline="false"></span>
             Danh sách đặt xe <span class="sr-only">(current)</span>
+        </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="pay_manager.php">
+            <span class="iconify" data-icon="bi-credit-card-fill" data-inline="false"></span>
+            Quản lý thanh toán <span class="sr-only">(current)</span>
         </a>
         </li>
         <li class="nav-item">

@@ -88,6 +88,7 @@ while ($row = mysqli_fetch_assoc($qr)) {
                                 <th>Trạng thái</th>
                                 <th>Chi phí</th>
                                 <th>Thời gian</th>
+                                <th>Thanh toán</th>
 
                             </tr>
                         </thead>
@@ -108,9 +109,17 @@ while ($row = mysqli_fetch_assoc($qr)) {
                                             echo "Đang di chuyển";
                                         } else {
                                             echo "Hoàn thành";
-                                        } ?>
+                                        } ?></td>
                                     <td><?php echo $d['costPay']; ?></td>
                                     <td><?php echo $d['created_at']; ?></td>
+                                    <td>
+                                        <?php if ($d['status']=='1' && $d['doneCost'] == '0') {
+                                            echo "Hủy";
+                                        } elseif  ($d['status']=='3' && $d['doneCost'] == '0')  {
+                                            echo "Chờ thanh toán";
+                                        }elseif  ($d['status']=='3' && $d['doneCost'] == '1') {
+                                            echo "Đã thanh toán";
+                                        } ?></td>
                                 </tr>
                             <?php
                             }

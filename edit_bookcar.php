@@ -9,16 +9,16 @@ if (isset($_SESSION['user_data'])) {
     $editinfo = false;
     $cost = "";
     $update = false;
-
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $update = true;
-        $record = mysqli_query($con, "SELECT * FROM fee WHERE id=$id");
-        if (count(array($record)) == 1) {
-            $data = mysqli_fetch_array($record);
-            $cost = $data['costPay'];
-        }
-    }
+     $id = $_GET['id'];
+    // if (isset($_GET['id'])) {
+    //     $id = $_GET['id'];
+    //     $update = true;
+    //     $record = mysqli_query($con, "SELECT * FROM fee WHERE id=$id");
+    //     if (count(array($record)) == 1) {
+    //         $data = mysqli_fetch_array($record);
+    //         $cost = $data['costPay'];
+    //     }
+    // }
     $dataPos = array();
     $count = 0;
     $qr = mysqli_query($con, "select * from car");

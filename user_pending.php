@@ -5,132 +5,153 @@ if (isset($_SESSION['user_data'])) {
     if ($_SESSION['user_data']['usertype'] != 2) {
         header("Location:admin_dashboard.php");
     }
-}
 
 
 
-$id = $_SESSION['user_data']['id'];
-$data = array();
-$count = 0;
-$qr = mysqli_query($con, "select * from bookcar where iduser=$id and status=0");
-if (mysqli_num_rows($qr) > 0) {
-    $data = mysqli_fetch_assoc($qr);
-    $cancel = $data['id'];
-    $_SESSION['cancel_id'] = $cancel;
-    //echo $cancel;
-    //exit();
-}
+
+    $id = $_SESSION['user_data']['id'];
+    $data = array();
+    $count = 0;
+    $start ="";
+    $stop ="";  
+    $qr = mysqli_query($con, "select * from bookcar where iduser=$id and status=0");
+    if (mysqli_num_rows($qr) > 0) {
+        $data = mysqli_fetch_assoc($qr);
+        $cancel = $data['id'];
+        $_SESSION['cancel_id'] = $cancel;
+        $start = $data['startPos'];
+        $stop = $data['endPos'];
+        //echo $cancel;
+        //exit();
+    }
+    
+    $result = mysqli_query($con, "select * from fee where (startPos='" . $start . "' and endPos='" . $stop . "')or(startPos='" . $stop . "' and endPos='" . $start . "')");
+    $f = mysqli_fetch_assoc($result);
+    $fee = $f['costPay'];
 
 
 ?>
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Dashboard</title>
-    <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Dashboard</title>
+        <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js">
-    </script>
-    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-    <meta name="theme-color" content="#563d7c">
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+        </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js">
+        </script>
+        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <meta name="theme-color" content="#563d7c">
 
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
-        }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
 
-</head>
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link href="dashboard.css" rel="stylesheet">
 
-<body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="user_dasboard.php">User</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="logout.php">Đăng xuất</a>
-            </li>
-        </ul>
-    </nav>
+    </head>
 
-    <div class="container-fluid">
-        <div class="row">
-            <?php include 'user_menu.php' ?>
+    <body>
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="user_dasboard.php">User</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="logout.php">Đăng xuất</a>
+                </li>
+            </ul>
+        </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <?php include 'user_menu.php' ?>
 
-
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm" style="text-align: center;">
-                        <thead>
-                            <tr>
-                               
-                                <th>Điểm đi</th>
-                                <th>Điểm đến</th>
-                                <th>Thao tác</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
 
-                            <tr>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm" style="text-align: center;">
+                            <thead>
+                                <tr>
 
-                                <td><?php if (mysqli_num_rows($qr) > 0) {
-                                        echo $data['startPos'];
-                                    } ?></td>
-                                <td><?php if (mysqli_num_rows($qr) > 0) {
-                                        echo $data['endPos'];
-                                    } ?></td>
-                                <td>
-                                    <a class="btn btn-info" href="user_cancel.php">
-                                        Hủy</a>
-                                </td>
+                                    <th>Điểm đi</th>
+                                    <th>Điểm đến</th>
+                                    <th>Chi Phí</th>
 
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </main>
+                                    <th>Thao tác</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <tr>
+                                    <?php if (mysqli_num_rows($qr) > 0) {
+                                    ?>
+                                        <td>
+                                            <?php echo $data['startPos']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['endPos']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fee ?>
+                                        </td>
+                                        <td>
+
+                                            <a class="btn btn-info" href="user_cancel.php">
+                                                Hủy</a>
+
+                                        </td>
+                                        </td>
+                                    <?php } ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
-    </script>
-    <script>
-        window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')
-    </script>
-    <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="dashboard.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+        </script>
+        <script>
+            window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')
+        </script>
+        <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="dashboard.js"></script>
+    </body>
 
-</html>
+    </html>
+<?php
+} else {
+    header("Location:login.php?error=UnAuthorized Access");
+}

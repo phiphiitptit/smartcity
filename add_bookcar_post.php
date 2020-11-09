@@ -43,22 +43,9 @@ if (isset($_SESSION['user_data'])) {
 
         // header("Location:admin_dashboard.php");
     }
-    if (isset($_POST['saveCode'])) {
-        $id = $_POST['id'];
-        $record = mysqli_query($con, "SELECT * FROM bookcar WHERE id=$id");
-
-        $qr = mysqli_query($con, "UPDATE bookcar SET codeCar='" . $code . "', status='2' WHERE id='" . $id . "'");
-        // $_SESSION['message'] = "Address updated!"; 
-        if ($qr) {
-            header("Location:add_bookcar.php?success=Sửa thành công");
-            header("Location:book_manager.php");
-        } else {
-            header("Location:add_bookcar.php?success=Gặp lỗi khi sửa");
-        }
 
 
         // header("Location:admin_dashboard.php");
-    }
     if (isset($_GET['iddelete'])) {
         $id = $_GET['iddelete'];
         $qr = mysqli_query($con, "DELETE FROM car WHERE id=$id");

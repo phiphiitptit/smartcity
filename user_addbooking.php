@@ -41,12 +41,11 @@ elseif ($pen){
 	header("Location:user_booking.php");
 }
 else{
-	$qr = mysqli_query($con, "INSERT into bookcar (startPos,endPos,costPay,created_at,status,iduser) values (
-	'" . $start . "','" . $stop . "','" . $fee . "','" . date('Y-m-d H:i:s') . "','0','" . $id . "')");
+	$qr = mysqli_query($con, "INSERT into bookcar (startPos,endPos,costPay,created_at,status,iduser) values ('" . $start . "','" . $stop . "','" . $fee . "','" . date('Y-m-d H:i:s') . "','0','" . $id . "')");
 
 	if ($qr) {
 			$_SESSION['booking_state']='success';
-			header("Location:user_booking.php?succss=Thêm thành công");
+			header("Location:user_booking.php?success=Thêm thành công");
 			echo '<script>alert("Welcome to Geeks for Geeks")</script>';
 
 

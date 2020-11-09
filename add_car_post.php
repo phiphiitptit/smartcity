@@ -27,6 +27,7 @@ if (isset($_SESSION['user_data'])) {
 	}
 	if (isset($_POST['update'])) {
 		$id = $_POST['id'];
+		
 		$record = mysqli_query($con, "SELECT * FROM car WHERE id=$id");
 		$data = mysqli_fetch_array($record);
 		$sql = mysqli_query($con, "SELECT * FROM car  WHERE code='".$code."' and id <> '".$id."'");
